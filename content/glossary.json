@@ -1,0 +1,18 @@
+{
+  "key fob": "access tag",
+  "fob": "access tag",
+  "swipe card": "access tag",
+  "pause": "freeze",
+  "hold": "freeze",
+  "suspend": "freeze",
+  "quit": "cancel",
+  "friend": "guest",
+  "mate": "guest",
+  "childcare": "creche",
+  "babysitting": "creche",
+  "pt": "personal training",
+  "trainer": "personal trainer",
+  "contract": "12-month term",
+  "bounced": "failed payment",
+  "uni": "student"
+}

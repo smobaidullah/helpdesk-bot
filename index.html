@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Desk Bot · answers from your own documents</title>
+    <meta name="description" content="A website help-desk chatbot that answers from a business's own documents, with sources. The AI model runs in your browser." />
+  </head>
+  <body>
+    <div class="page">
+      <section class="intro">
+        <h1>Help Desk Bot</h1>
+        <p class="lead">
+          A website chatbot that answers customers from a business's own documents, shows where each answer came from,
+          and says “I don't know” instead of making things up.
+        </p>
+        <p class="muted">
+          This demo is set up for <b>Tidewater Fitness</b>, a made-up gym. The AI search model runs entirely in your
+          browser, so nothing you type is sent to a server.
+        </p>
+
+        <details class="panel" open>
+          <summary>Try it with your own document</summary>
+          <form id="own-doc">
+            <input id="doc-name" class="field" placeholder="Name, e.g. Acme Café FAQ" />
+            <textarea id="doc-text" class="field" rows="6" placeholder="Paste an FAQ, a policy, a menu, a product page..."></textarea>
+            <div class="row">
+              <label class="file">or upload a .txt / .md file<input id="doc-file" type="file" accept=".txt,.md,text/plain,text/markdown" /></label>
+              <button class="btn" disabled>Use this document</button>
+            </div>
+            <div id="doc-status" class="muted small"></div>
+          </form>
+        </details>
+
+        <details class="panel">
+          <summary>Optional: fuller answers with Gemini</summary>
+          <p class="muted small">
+            By default, answers are quoted straight from the documents. Paste a free Google AI Studio key to have Gemini
+            write the answer instead, still using only the matched sources. The key stays in this tab's memory and is never saved.
+          </p>
+          <form id="gemini" class="row">
+            <input id="gemini-key" class="field" type="password" placeholder="Gemini API key" autocomplete="off" />
+            <button class="btn">Save</button>
+          </form>
+          <div id="gemini-status" class="muted small"></div>
+        </details>
+
+        <p class="muted small">
+          How it works: documents are split into sections and turned into embeddings (all-MiniLM-L6-v2 via transformers.js).
+          A question is matched against every section and sentence, the best section is quoted, and anything below a
+          confidence threshold gets an honest “I don't know”.
+          <a href="https://github.com/smobaidullah/helpdesk-bot">Source code</a>
+        </p>
+      </section>
+
+      <section class="chat">
+        <header class="chat-head">
+          <div class="bot-avatar">?</div>
+          <div>
+            <b id="kb-name">Loading...</b>
+            <div class="muted small">Help desk</div>
+          </div>
+          <button id="back-to-demo" class="btn btn-sm" hidden>Back to demo</button>
+        </header>
+        <div id="messages"></div>
+        <div id="status" class="muted small"></div>
+        <div id="suggestions"></div>
+        <form id="ask">
+          <input id="question" class="field" placeholder="Ask a question..." autocomplete="off" disabled />
+          <button class="btn btn-primary" disabled>Send</button>
+        </form>
+      </section>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
